@@ -15,17 +15,22 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
     console.log('connected to a new user');
 
-    socket.emit('newEmail', {
-        to: 'kg@kg.com',
-        msg: 'something new'
+    socket.emit('newMessage', {
+        from: 'Admin',
+        text: `Welcome to the ChatRoom`,
+        createdAt: new Date().getTime()
     });
 
-    socket.on('createEmail', (email) => {
-        console.log('From Client', email);
+    socket.broadcast.emit('newMessage', {
+        from : 'Admin',
+        text: `New User joined`,
+        createdAt: new Date().getTime()
     });
 
-    socket.on('createMessage', (message) => {
+
+    socket.on('createMessage', (message, callback) => {
         console.log('createMessage', message);
+        callback('I got YOu babe');
         io.emit('newMessage', {
             from: message.from,
             text: message.text,
