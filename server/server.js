@@ -28,6 +28,20 @@ io.on('connection', (socket) => {
     });
 
 
+    socket.on('createLocation', (position) => {
+        console.log(position);
+        io.emit('newLocationMessage', generateLocationMessage('Admin', position.lat, position.lng));
+    });
+
+    generateMessage = (from, text) => {
+        return {from, text};
+    }
+
+    generateLocationMessage = (from, lat, lng) => {
+        return {from, url: `https://www.google.com/maps?q=${lat},${lng}`};
+    }
+
+
     socket.on('createMessage', (message, callback) => {
         console.log('createMessage', message);
         callback('I got YOu babe');
