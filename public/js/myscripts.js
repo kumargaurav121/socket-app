@@ -15,7 +15,7 @@ socket.on('newMessage', function(message){
     //console.log('new Message', message);
 
     var li = $('<li></li>');
-    li.text(`${message.from}: ${message.text}`);
+    li.text(`${message.from} (${message.createdAt}): ${message.text}`);
 
     $('#myList').append(li);
 });
@@ -25,7 +25,7 @@ socket.on('newLocationMessage', function(message){
     //console.log('new Message', message);
 
     var li = $('<li></li>');
-    li.text(`${message.from}: `);
+    li.text(`${message.from} (${message.createdAt}): `);
     var a = $('<a target="_blank">My Location</a>');
     a.attr('href', message.url);
     li.append(a);
